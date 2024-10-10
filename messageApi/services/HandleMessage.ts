@@ -4,9 +4,16 @@ import { Context } from "vm";
 
 
 const s3Client = new S3Client()
+const messagesBucket = process.env.MESSAGES_BUCKET
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
 
-    return {} as any
-    
+    console.log(messagesBucket);
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Hello World' })
+    }    
 }
+
+export { handler }
