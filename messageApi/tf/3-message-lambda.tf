@@ -56,6 +56,12 @@ resource "aws_lambda_function" "messages_lambda" {
   source_code_hash = data.archive_file.messages_lambda_archive.output_base64sha256
 
   role = aws_iam_role.messages_lambda_iam_role.arn
+
+  environment {
+    variables = {
+      MESSAGES_BUCKET = aws_s3_bucket.messages_bucket.id
+    }
+  }
 }
 
 data "archive_file" "messages_lambda_archive" {
