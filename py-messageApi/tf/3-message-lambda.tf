@@ -50,13 +50,13 @@ resource "aws_iam_role_policy_attachment" "messages_lambda_role_policy_attachmen
 }
 
 resource "aws_lambda_function" "messages_lambda" {
-  function_name = "messages_lambda"
+  function_name = "messages_lambda-py"
 
   s3_bucket = aws_s3_bucket.lambda_bucket.id
   s3_key    = aws_s3_object.messages_lambda_s3.key
 
-  runtime = "nodejs20.x"
-  handler = "HandleMessage.handler"
+  runtime = "python3.11"
+  handler = "handle_message.handler"
 
   source_code_hash = data.archive_file.messages_lambda_archive.output_base64sha256
 
@@ -72,7 +72,7 @@ resource "aws_lambda_function" "messages_lambda" {
 data "archive_file" "messages_lambda_archive" {
   type = "zip"
 
-  source_dir  = "../${path.module}/dist"
+  source_dir  = "../${path.module}/services"
   output_path = "../${path.module}/tf/.terraform/messages.zip"
 }
 

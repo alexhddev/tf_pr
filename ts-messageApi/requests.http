@@ -1,8 +1,8 @@
-POST https://1oe07ch4kf.execute-api.eu-central-1.amazonaws.com/dev/messages
+POST https://ynkqvftuvh.execute-api.eu-central-1.amazonaws.com/dev/messages
 Content-Type: application/json
 
 {
     "message": "Hello, World!"
 }
 ###
-GET https://1oe07ch4kf.execute-api.eu-central-1.amazonaws.com/dev/messages
+GET https://ynkqvftuvh.execute-api.eu-central-1.amazonaws.com/dev/messages
