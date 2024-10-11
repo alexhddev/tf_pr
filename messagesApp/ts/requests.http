@@ -1,8 +1,0 @@
-POST https://ynkqvftuvh.execute-api.eu-central-1.amazonaws.com/dev/messages
-Content-Type: application/json
-
-{
-    "message": "Hello, World!"
-}
-###
-GET https://ynkqvftuvh.execute-api.eu-central-1.amazonaws.com/dev/messages

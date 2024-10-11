@@ -1,12 +1,9 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
-import { ListObjectsV2Command } from "@aws-sdk/client-s3";
-
+import { PutObjectCommand, S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 
 const s3Client = new S3Client()
 const messagesBucket = process.env.MESSAGES_BUCKET
 
-async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+async function handler(event, context) {
 
     try {
         switch (event.httpMethod) {
