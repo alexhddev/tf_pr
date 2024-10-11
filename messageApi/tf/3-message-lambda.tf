@@ -31,9 +31,14 @@ resource "aws_iam_policy" "messages_lambda_policy" {
       {
         Action = [
           "s3:GetObject",
+          "s3:ListBucket",
+          "s3:PutObject"
         ]
         Effect   = "Allow"
-        Resource = "arn:aws:s3:::${aws_s3_bucket.messages_bucket.id}/*"
+        Resource = [
+          "arn:aws:s3:::${aws_s3_bucket.messages_bucket.id}/*",
+          "arn:aws:s3:::${aws_s3_bucket.messages_bucket.id}"
+          ]
       },
     ]
   })

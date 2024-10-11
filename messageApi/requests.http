@@ -1,3 +1,8 @@
-POST https://u1zxrzq5qa.execute-api.eu-central-1.amazonaws.com/dev/messages?Name=sefu
+POST https://1oe07ch4kf.execute-api.eu-central-1.amazonaws.com/dev/messages
+Content-Type: application/json
 
-GET https://u1zxrzq5qa.execute-api.eu-central-1.amazonaws.com/dev/messages
+{
+    "message": "Hello, World!"
+}
+###
+GET https://1oe07ch4kf.execute-api.eu-central-1.amazonaws.com/dev/messages
