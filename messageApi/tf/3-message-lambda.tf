@@ -50,8 +50,8 @@ resource "aws_lambda_function" "messages_lambda" {
   s3_bucket = aws_s3_bucket.lambda_bucket.id
   s3_key    = aws_s3_object.messages_lambda_s3.key
 
-  runtime = "nodejs16.x"
-  handler = "function.handler"
+  runtime = "nodejs20.x"
+  handler = "HandleMessage.handler"
 
   source_code_hash = data.archive_file.messages_lambda_archive.output_base64sha256
 
