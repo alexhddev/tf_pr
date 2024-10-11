@@ -1,6 +1,5 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { Context } from "vm";
+import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { ListObjectsV2Command } from "@aws-sdk/client-s3";
 
 
