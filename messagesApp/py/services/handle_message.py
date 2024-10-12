@@ -1,47 +1,61 @@
 import json
+import os
+from boto3 import resource
+import requests
 
-# prompt: aws lambda function to handle different http methods
+s3_client = resource('s3')
+bucket_name = os.environ['MESSAGES_BUCKET']
+
 def handler(event, context):
-    method = event['httpMethod']
     
-    if method == 'GET':
-        return handle_get(event)
-    elif method == 'POST':
-        return handle_post(event)
-    elif method == 'PUT':
-        return handle_put(event)
-    elif method == 'DELETE':
-        return handle_delete(event)
-    else:
+    # print the requests version:
+    print(requests.__version__)
+
+    try:
+        method = event['httpMethod']
+        
+        if method == 'GET':
+            return handle_get(event)
+        elif method == 'POST':
+            return handle_post(event)
+        else:
+            return {
+                'statusCode': 405,
+                'body': json.dumps('Method Not Allowed')
+            }
+    except Exception as e:
         return {
-            'statusCode': 405,
-            'body': json.dumps('Method Not Allowed')
+            'statusCode': 500,
+            'body': json.dumps(str(e))
         }
+    
+
+
 
 def handle_get(event):
-    # Handle GET request
+    
+    # list all objects in the bucket
+    bucket = s3_client.Bucket(bucket_name)
+    objects = bucket.objects.all()
+
     return {
         'statusCode': 200,
-        'body': json.dumps('GET request handled')
+        'body': json.dumps(objects)
     }
-
+    
 def handle_post(event):
-    # Handle POST request
-    return {
-        'statusCode': 200,
-        'body': json.dumps('POST request handled')
-    }
+    
+    if 'body' in event:
+        body = json.loads(event['body'])
+        # put the body in the bucket
+        bucket = s3_client.Bucket(bucket_name)
+        bucket.put_object(Key='message.txt', Body=body['message'])
+        return {
+            'statusCode': 200,
+            'body': json.dumps('POST request handled')
+        }        
 
-def handle_put(event):
-    # Handle PUT request
     return {
-        'statusCode': 200,
-        'body': json.dumps('PUT request handled')
-    }
-
-def handle_delete(event):
-    # Handle DELETE request
-    return {
-        'statusCode': 200,
-        'body': json.dumps('DELETE request handled')
+        'statusCode': 400,
+        'body': json.dumps('Request body is missing')
     }
